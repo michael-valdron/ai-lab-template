@@ -17,6 +17,8 @@ spec:
       required:
         - name
         - owner
+        - argoNS
+        - argoProject
         - modelServer
       properties:
         name:
@@ -38,6 +40,27 @@ spec:
             catalogFilter:
               kind: [Group, User]
               readonly: false
+        argoNS:
+          title: ArgoCD Namespace
+          type: string
+          description: The target namespace of the ArgoCD deployment
+          default: ai-rhdh
+          ui:field: EntityNamePicker
+          ui:options:
+            catalogFilter:
+              kind: [Namespace]
+              readonly: false
+        argoProject:
+          title: ArgoCD Project
+          type: string
+          description: The target ArgoCD project name
+          default: default
+          maxLength: 63
+        argoLabels:
+          title: Override ArgoCD Labels?
+          type: boolean
+          description: Indicate if you need to set your own ArgoCD Application Labels
+          default: false
         modelServer:
           # SED_LLM_SERVER_START
           title: Model Server
@@ -59,6 +82,22 @@ spec:
             - Existing model server
             # SED_EXISTING_SERVER_END
       dependencies:
+        argoLabels:
+          oneOf:
+            - required:
+                - argoLabelsYAML
+              properties:
+                argoLabels:
+                  const: true
+                argoLabelsYAML:
+                  title: ArgoCD Labels
+                  type: string
+                  description: Define your ArgoCD Application Free-YAML Labels here
+                  ui:widget: textarea
+                  ui:options:
+                    rows: 10
+                  ui:placeholder: |
+                    appName: ai-app
         modelServer:
           oneOf:
             # SED_EXISTING_SERVER_START
@@ -332,8 +371,10 @@ spec:
           srcRepoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}
           argoComponentOverlays: './components/${{ parameters.name }}/overlays'
           owner: ${{ parameters.owner }}
-          argoNS: ai-rhdh
-          argoProject: default
+          argoNS: ${{ parameters.argoNS }}
+          argoProject: ${{ parameters.argoProject }}
+          argoLabels: ${{ parameters.argoLabels }}
+          argoLabelsYAML: ${{ parameters.argoLabelsYAML if parameters.argoLabels else '' }}
           secretRef: ${{ parameters.hostType === 'GitLab' }}
           gitSecret: gitlab-auth-secret
           gitSecretKey: password

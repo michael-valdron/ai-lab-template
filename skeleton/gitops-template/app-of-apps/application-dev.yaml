@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: ${{ values.name }}-app
   namespace: ${{ values.argoNS }}
+  {%- if values.argoLabels %}
+  labels:
+    ${{ values.argoLabelsYAML }}
+  {%- endif %}
   finalizers: ["resources-finalizer.argocd.argoproj.io"]
 spec:
   project: ${{ values.argoProject }}
