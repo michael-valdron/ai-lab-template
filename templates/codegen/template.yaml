@@ -47,11 +47,7 @@ spec:
           description: Owner of the component
           default: user:guest
           ui:field: OwnerPicker
-          ui:options:
-            allowedKinds: [Group, User]
-            catalogFilter:
-              kind: [Group, User]
-              readonly: false
+          ui:options: {}
         argoNS:
           title: ArgoCD Namespace
           type: string
