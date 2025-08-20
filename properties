@@ -3,10 +3,10 @@ export GITHUB__DEFAULT__HOST=github.com
 export GITLAB__DEFAULT__HOST=gitlab.com
 export QUAY__DEFAULT__HOST=quay.io
 
-export DEFAULT__DEPLOYMENT__NAMESPACE__PREFIX=rhdh-app
+export DEFAULT__DEPLOYMENT__NAMESPACE__PREFIX=rolling-demo-ns-app-development
 
-export RHDH__DEFAULT__NAMESPACE=ai-rhdh
-export ARGOCD__DEFAULT__NAMESPACE=ai-rhdh
+export RHDH__DEFAULT__NAMESPACE=rolling-demo-ns
+export ARGOCD__DEFAULT__NAMESPACE=openshift-gitops
 export ARGOCD__DEFAULT__INSTANCE=default
 export ARGOCD__DEFAULT__PROJECT=default
 

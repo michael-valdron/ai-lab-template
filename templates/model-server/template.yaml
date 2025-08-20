@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
-  name: model-server
-  title: Model Server, No Application
+  name: model-server-1
+  title: Model Server, No Application 1
   description: Deploy a granite-3.1 8b model with a vLLM server. While no application is configured, this model server can be utilized in other Software Templates, like a Chatbot Application for instance.
   tags: ["ai", "vllm", "modelserver"]
   annotations:
@@ -53,7 +53,7 @@ spec:
           title: ArgoCD Namespace
           type: string
           description: The target namespace of the ArgoCD deployment
-          default: ai-rhdh
+          default: openshift-gitops
           maxLength: 63
         argoInstance:
           title: ArgoCD Instance
@@ -170,7 +170,7 @@ spec:
         namespace:
           title: Deployment Namespace
           type: string
-          default: rhdh-app
+          default: rolling-demo-ns-app-development
           ui:autofocus: true
           ui:options:
             rows: 5
@@ -189,7 +189,7 @@ spec:
           appName: ${{ parameters.name }}-gitops # for now just use the component name, since it's single component app
           description: This is GitOps manifest for ${{ parameters.name }}
           namespace: ${{ parameters.namespace }}
-          rhdhNamespace: ai-rhdh
+          rhdhNamespace: rolling-demo-ns
           # example: github.com?owner=<owner>&repo=<srcRepo>, the gitops repo name will be <srcRepo>-gitops
           repoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}-gitops
           srcRepoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}

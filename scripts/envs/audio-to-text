@@ -1,8 +1,8 @@
 # all default common env var values are defined in scripts/envs/base file
 # in order to override a default common env var value and/or add a custom
 # env var used only for this sample you can list it here
-export APP_NAME="audio-to-text"
-export APP_DISPLAY_NAME="Audio to Text Application"
+export APP_NAME="audio-to-text-1"
+export APP_DISPLAY_NAME="Audio to Text Application 1"
 export APP_DESC="Build your own AI-enabled audio transcription application. Pick from the model servers available or bring your own."
 export APP_SUMMARY="An AI-enabled audio transcription streamlit application. Upload an audio file to be transcribed."
 export APP_TAGS='["ai", "whispercpp", "python", "asr"]'
